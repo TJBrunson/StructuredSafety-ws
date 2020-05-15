@@ -10,7 +10,7 @@ app.use(cors());
 
 const companyDocs = require('./routes/api/companyDocs');
 
-app.use('/api/companies', companyDocs);
+app.use('/api/company', companyDocs);
 
 const port = process.env.PORT || 5000;
 
