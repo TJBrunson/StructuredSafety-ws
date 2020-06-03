@@ -33,19 +33,18 @@ router.get("/:companyName", async (req, res) => {
  * @param {*} companyName 
  */
 async function loadCompanyDocs(companyName) {
-  return testDoc;
-  // try {
-  //   const response = await s3
-  //     .listObjectsV2({
-  //       Bucket: config.aws.companyBucket,
-  //       Prefix: `${companyName}/`,
-  //     })
-  //     .promise();
-  //     const result = processResponse(response.Contents)
-  //     return result;
-  // } catch (e) {
-  //   console.error(e);
-  // }
+  try {
+    const response = await s3
+      .listObjectsV2({
+        Bucket: config.aws.companyBucket,
+        Prefix: `${companyName}/`,
+      })
+      .promise();
+      const result = processResponse(response.Contents)
+      return result;
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 /**
@@ -77,8 +76,8 @@ function processResponse(res) {
 }
 
 //return a file as a download based on a passed in key
-router.get("/get-file/:key", async (req, res) => {
-  s3.getObject({ Bucket: config.aws.companyBucket, Key: req.params.key })
+router.post("/get-file", async (req, res) => {
+  s3.getObject({ Bucket: config.aws.companyBucket, Key: req.body.key })
     .on("httpHeaders", function (statusCode, headers) {
       res.set("Content-Length", headers["content-length"]);
       res.set("Content-Type", headers["content-type"]);
