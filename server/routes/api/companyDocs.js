@@ -72,7 +72,7 @@ function processResponse(res) {
     }
     result[index].files.push(obj);
   });
-  return result;
+  return result
 }
 
 //return a file as a download based on a passed in key
